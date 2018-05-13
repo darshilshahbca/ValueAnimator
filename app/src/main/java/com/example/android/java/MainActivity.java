@@ -1,5 +1,6 @@
 package com.example.android.java;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -24,7 +25,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRunBtnClick(View v) {
-        displayMessage("Running code!");
+//        displayMessage("Running code!");
+        final ValueAnimator animator = ValueAnimator.ofFloat(1f, 20f)
+                            .setDuration(2000);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                displayMessage("timestamp: " + animation.getCurrentPlayTime() +
+                ", value: "  + animation.getAnimatedValue());
+            }
+        });
+
+        animator.setRepeatCount(2); //To Repeat number of Times
+        animator.setRepeatMode(ValueAnimator.REVERSE); //
+        animator.start();
+
     }
 
     public void onClearBtnClick(View v) {
